@@ -2,7 +2,7 @@
 This repository includes all the projects done as part of learning data science. 
 The projects can include exploratory data analysis, data visualization or implementing machine learning models for data mining. 
 
-<h2> Project 1 - Airlines Performance Dashboard </h2>
+<h2> Project 1 - Airline Flights Performance using Dash and Plotly </h2>
 
 The project involves creating an interactive dashboard using Dash to report yearly US domestic airline flights performance for 2005-2020. Goal is to analyze the performance of the reporting airline to improve flight reliability thereby improving customer reliability.
 
