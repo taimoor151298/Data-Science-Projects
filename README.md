@@ -4,13 +4,14 @@ The projects can include exploratory data analysis, data visualization or implem
 
 <h2> Project 1 - Airlines Performance Dashboard </h2>
 
-The project involves creating an interactive dashboard using Dash to report US domestic airline flights performance. Goal is to analyze the performance of the reporting airline to improve flight reliability thereby improving customer reliability.
+The project involves creating an interactive dashboard using Dash to report yearly US domestic airline flights performance for 2005-2020. Goal is to analyze the performance of the reporting airline to improve flight reliability thereby improving customer reliability.
 
 Below are the key report items,
 
 - Yearly airline performance report 
 - Yearly average flight delay statistics
-**Year range is between 2005 and 2020.
+- 
+**Year range is between 2005 and 2020.**
 
 
 
