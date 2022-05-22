@@ -4,7 +4,7 @@ The projects can include exploratory data analysis, data visualization or implem
 Datasets will primarily be acquired from online resources such as Kaggle.
 
 
-<h2> **Project 1 - Airlines Performance Dashboard** </h2>
+<h2> Project 1 - Airlines Performance Dashboard </h2>
 
 The project involves creating an interactive dashboard using Dash to report US domestic airline flights performance. Goal is to analyze the performance of the reporting airline to improve flight reliability thereby improving customer reliability.
 
