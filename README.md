@@ -10,9 +10,6 @@ Below are the key report items,
 
 - Yearly airline performance report 
 - Yearly average flight delay statistics
-- 
-**Year range is between 2005 and 2020.**
-
 
 
 In case of yearly airline performance report for a chosen year, following graphs have been plotted:
