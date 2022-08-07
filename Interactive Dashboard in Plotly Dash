@@ -1,0 +1,374 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "DataScienceProject_Week3_Lab2",
+      "provenance": [],
+      "collapsed_sections": [],
+      "authorship_tag": "ABX9TyPbW54Tm8BLtWkJ/3wBykIf",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/taimoor151298/Data-Science-Projects/blob/main/Interactive%20Dashboard%20in%20Plotly%20Dash\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#**Interactive Dashboard with Plotly Dash**\n"
+      ],
+      "metadata": {
+        "id": "600JiXF3rYnY"
+      }
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "-NbqQRK8noH5",
+        "outputId": "fdef2a81-2484-4a49-e686-728bb6906ee4"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/\n",
+            "Requirement already satisfied: pandas in /usr/local/lib/python3.7/dist-packages (1.3.5)\n",
+            "Requirement already satisfied: jupyter-dash in /usr/local/lib/python3.7/dist-packages (0.4.2)\n",
+            "Requirement already satisfied: pytz>=2017.3 in /usr/local/lib/python3.7/dist-packages (from pandas) (2022.1)\n",
+            "Requirement already satisfied: python-dateutil>=2.7.3 in /usr/local/lib/python3.7/dist-packages (from pandas) (2.8.2)\n",
+            "Requirement already satisfied: numpy>=1.17.3 in /usr/local/lib/python3.7/dist-packages (from pandas) (1.21.6)\n",
+            "Requirement already satisfied: six>=1.5 in /usr/local/lib/python3.7/dist-packages (from python-dateutil>=2.7.3->pandas) (1.15.0)\n",
+            "Requirement already satisfied: requests in /usr/local/lib/python3.7/dist-packages (from jupyter-dash) (2.23.0)\n",
+            "Requirement already satisfied: ansi2html in /usr/local/lib/python3.7/dist-packages (from jupyter-dash) (1.8.0)\n",
+            "Requirement already satisfied: dash in /usr/local/lib/python3.7/dist-packages (from jupyter-dash) (2.6.1)\n",
+            "Requirement already satisfied: ipython in /usr/local/lib/python3.7/dist-packages (from jupyter-dash) (5.5.0)\n",
+            "Requirement already satisfied: flask in /usr/local/lib/python3.7/dist-packages (from jupyter-dash) (1.1.4)\n",
+            "Requirement already satisfied: nest-asyncio in /usr/local/lib/python3.7/dist-packages (from jupyter-dash) (1.5.5)\n",
+            "Requirement already satisfied: retrying in /usr/local/lib/python3.7/dist-packages (from jupyter-dash) (1.3.3)\n",
+            "Requirement already satisfied: ipykernel in /usr/local/lib/python3.7/dist-packages (from jupyter-dash) (4.10.1)\n",
+            "Requirement already satisfied: importlib-metadata in /usr/local/lib/python3.7/dist-packages (from ansi2html->jupyter-dash) (4.12.0)\n",
+            "Requirement already satisfied: plotly>=5.0.0 in /usr/local/lib/python3.7/dist-packages (from dash->jupyter-dash) (5.5.0)\n",
+            "Requirement already satisfied: dash-core-components==2.0.0 in /usr/local/lib/python3.7/dist-packages (from dash->jupyter-dash) (2.0.0)\n",
+            "Requirement already satisfied: flask-compress in /usr/local/lib/python3.7/dist-packages (from dash->jupyter-dash) (1.12)\n",
+            "Requirement already satisfied: dash-html-components==2.0.0 in /usr/local/lib/python3.7/dist-packages (from dash->jupyter-dash) (2.0.0)\n",
+            "Requirement already satisfied: dash-table==5.0.0 in /usr/local/lib/python3.7/dist-packages (from dash->jupyter-dash) (5.0.0)\n",
+            "Requirement already satisfied: itsdangerous<2.0,>=0.24 in /usr/local/lib/python3.7/dist-packages (from flask->jupyter-dash) (1.1.0)\n",
+            "Requirement already satisfied: Werkzeug<2.0,>=0.15 in /usr/local/lib/python3.7/dist-packages (from flask->jupyter-dash) (1.0.1)\n",
+            "Requirement already satisfied: click<8.0,>=5.1 in /usr/local/lib/python3.7/dist-packages (from flask->jupyter-dash) (7.1.2)\n",
+            "Requirement already satisfied: Jinja2<3.0,>=2.10.1 in /usr/local/lib/python3.7/dist-packages (from flask->jupyter-dash) (2.11.3)\n",
+            "Requirement already satisfied: MarkupSafe>=0.23 in /usr/local/lib/python3.7/dist-packages (from Jinja2<3.0,>=2.10.1->flask->jupyter-dash) (2.0.1)\n",
+            "Requirement already satisfied: tenacity>=6.2.0 in /usr/local/lib/python3.7/dist-packages (from plotly>=5.0.0->dash->jupyter-dash) (8.0.1)\n",
+            "Requirement already satisfied: brotli in /usr/local/lib/python3.7/dist-packages (from flask-compress->dash->jupyter-dash) (1.0.9)\n",
+            "Requirement already satisfied: typing-extensions>=3.6.4 in /usr/local/lib/python3.7/dist-packages (from importlib-metadata->ansi2html->jupyter-dash) (4.1.1)\n",
+            "Requirement already satisfied: zipp>=0.5 in /usr/local/lib/python3.7/dist-packages (from importlib-metadata->ansi2html->jupyter-dash) (3.8.1)\n",
+            "Requirement already satisfied: jupyter-client in /usr/local/lib/python3.7/dist-packages (from ipykernel->jupyter-dash) (5.3.5)\n",
+            "Requirement already satisfied: traitlets>=4.1.0 in /usr/local/lib/python3.7/dist-packages (from ipykernel->jupyter-dash) (5.1.1)\n",
+            "Requirement already satisfied: tornado>=4.0 in /usr/local/lib/python3.7/dist-packages (from ipykernel->jupyter-dash) (5.1.1)\n",
+            "Requirement already satisfied: setuptools>=18.5 in /usr/local/lib/python3.7/dist-packages (from ipython->jupyter-dash) (57.4.0)\n",
+            "Requirement already satisfied: pygments in /usr/local/lib/python3.7/dist-packages (from ipython->jupyter-dash) (2.6.1)\n",
+            "Requirement already satisfied: simplegeneric>0.8 in /usr/local/lib/python3.7/dist-packages (from ipython->jupyter-dash) (0.8.1)\n",
+            "Requirement already satisfied: pexpect in /usr/local/lib/python3.7/dist-packages (from ipython->jupyter-dash) (4.8.0)\n",
+            "Requirement already satisfied: decorator in /usr/local/lib/python3.7/dist-packages (from ipython->jupyter-dash) (4.4.2)\n",
+            "Requirement already satisfied: pickleshare in /usr/local/lib/python3.7/dist-packages (from ipython->jupyter-dash) (0.7.5)\n",
+            "Requirement already satisfied: prompt-toolkit<2.0.0,>=1.0.4 in /usr/local/lib/python3.7/dist-packages (from ipython->jupyter-dash) (1.0.18)\n",
+            "Requirement already satisfied: wcwidth in /usr/local/lib/python3.7/dist-packages (from prompt-toolkit<2.0.0,>=1.0.4->ipython->jupyter-dash) (0.2.5)\n",
+            "Requirement already satisfied: jupyter-core>=4.6.0 in /usr/local/lib/python3.7/dist-packages (from jupyter-client->ipykernel->jupyter-dash) (4.11.1)\n",
+            "Requirement already satisfied: pyzmq>=13 in /usr/local/lib/python3.7/dist-packages (from jupyter-client->ipykernel->jupyter-dash) (23.2.0)\n",
+            "Requirement already satisfied: ptyprocess>=0.5 in /usr/local/lib/python3.7/dist-packages (from pexpect->ipython->jupyter-dash) (0.7.0)\n",
+            "Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.7/dist-packages (from requests->jupyter-dash) (2022.6.15)\n",
+            "Requirement already satisfied: chardet<4,>=3.0.2 in /usr/local/lib/python3.7/dist-packages (from requests->jupyter-dash) (3.0.4)\n",
+            "Requirement already satisfied: idna<3,>=2.5 in /usr/local/lib/python3.7/dist-packages (from requests->jupyter-dash) (2.10)\n",
+            "Requirement already satisfied: urllib3!=1.25.0,!=1.25.1,<1.26,>=1.21.1 in /usr/local/lib/python3.7/dist-packages (from requests->jupyter-dash) (1.24.3)\n",
+            "Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/\n",
+            "Requirement already satisfied: wget in /usr/local/lib/python3.7/dist-packages (3.2)\n"
+          ]
+        }
+      ],
+      "source": [
+        "!pip install pandas jupyter-dash\n",
+        "!pip install wget\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import wget\n",
+        "spacex_launch_dash = wget.download(\"https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DS0321EN-SkillsNetwork/datasets/spacex_launch_dash.csv\")\n",
+        "skeleton_dash = wget.download(\"https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DS0321EN-SkillsNetwork/labs/module_3/spacex_dash_app.py\")"
+      ],
+      "metadata": {
+        "id": "BCDLj2u_n3Ng"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Import required libraries\n",
+        "import pandas as pd\n",
+        "import jupyter_dash\n",
+        "import dash_html_components as html\n",
+        "import dash_core_components as dcc\n",
+        "from dash.dependencies import Input, Output\n",
+        "import plotly.express as px\n",
+        "\n",
+        "# Read the airline data into pandas dataframe\n",
+        "spacex_df = pd.read_csv(\"spacex_launch_dash.csv\")\n",
+        "print(spacex_df.head())\n",
+        "max_payload = spacex_df['Payload Mass (kg)'].max()\n",
+        "min_payload = spacex_df['Payload Mass (kg)'].min()\n",
+        "\n",
+        "# Create a dash application\n",
+        "app = jupyter_dash.JupyterDash(__name__)\n",
+        "\n",
+        "# Create an app layout\n",
+        "app.layout = html.Div(children=[html.H1('SpaceX Launch Records Dashboard',\n",
+        "                                        style={'textAlign': 'center', 'color': '#503D36',\n",
+        "                                               'font-size': 40}),\n",
+        "                                # TASK 1: Add a dropdown list to enable Launch Site selection\n",
+        "                                # The default select value is for ALL sites\n",
+        "                                dcc.Dropdown(id='site-dropdown',  options=[{'label': 'All Sites', 'value': 'ALL'},\n",
+        "                                                                           {'label':'CCAFS LC-40', 'value' : 'CCAFS LC-40'},\n",
+        "                                                                            {'label':'VAFB SLC-4E', 'value' : 'VAFB SLC-4E'},\n",
+        "                                                                           {'label':'KSC LC-39A', 'value' : 'KSC LC-39A'}\n",
+        "                                                                           ,{'label':'CCAFS SLC-40', 'value' : 'CCAFS SLC-40'} ],\n",
+        "  \n",
+        "                                             value = 'ALL',\n",
+        "                                             placeholder = \"Please select a site\",\n",
+        "                                             searchable = True\n",
+        "                                             ),\n",
+        "                                html.Br(),\n",
+        "\n",
+        "                                # TASK 2: Add a pie chart to show the total successful launches count for all sites\n",
+        "                                # If a specific launch site was selected, show the Success vs. Failed counts for the site\n",
+        "                                html.Div(dcc.Graph(id='success-pie-chart'))\n",
+        "                              ,\n",
+        "                                              \n",
+        "                  \n",
+        "\n",
+        "                                html.P(\"Payload range (Kg):\"), \n",
+        "                                # TASK 3: Add a slider to select payload range\n",
+        "                              dcc.RangeSlider(id='payload-slider', min = 0, max = 10000, step = 1000,  \n",
+        "                                                         marks = {0:'0', 2000:'2000', 4000:'4000', 6000:'6000', 8000:'8000', 10000: '10000'},\n",
+        "                                               value = [min_payload, max_payload]), \n",
+        "\n",
+        "                                # TASK 4: Add a scatter chart to show the correlation between payload and launch success\n",
+        "                                html.Div(dcc.Graph(id='success-payload-scatter-chart')),\n",
+        "                                ])\n",
+        "\n",
+        "# TASK 2:\n",
+        "# Add a callback function for `site-dropdown` as input, `success-pie-chart` as output\n",
+        "@app.callback(Output(component_id='success-pie-chart', component_property='figure'),\n",
+        "                                              Input(component_id='site-dropdown', component_property='value'))\n",
+        "def get_pie_chart(entered_site):\n",
+        "\n",
+        "                      filtered_df = spacex_df\n",
+        "                      if entered_site == 'ALL':\n",
+        "                        fig = px.pie(filtered_df, values='class', \n",
+        "                        names='Launch Site', \n",
+        "                        title='Total Success Launches by Site')\n",
+        "                        return fig\n",
+        "                        \n",
+        "                      else:\n",
+        "                        filtered_df = spacex_df[spacex_df['Launch Site'] == entered_site]\n",
+        "                        fig = px.pie(filtered_df, values = filtered_df['class'].value_counts(),\n",
+        "                             names = filtered_df['class'].unique() , title ='Total Success Launches for Site {}'.format(entered_site) )\n",
+        "                        return fig\n",
+        "                       \n",
+        "                                \n",
+        "\n",
+        "# TASK 4:\n",
+        "# Add a callback function for `site-dropdown` and `payload-slider` as inputs, `success-payload-scatter-chart` as output\n",
+        "\n",
+        "@app.callback(Output(component_id='success-payload-scatter-chart', component_property='figure'),\n",
+        "                                              [Input(component_id='site-dropdown', component_property='value')\n",
+        "                                              ,Input(component_id='payload-slider', component_property= 'value')])\n",
+        "def get_scatter_chart(entered_site, payload):\n",
+        "\n",
+        "                      filtered_df = spacex_df[ (spacex_df['Payload Mass (kg)'] > payload[0]) & (spacex_df['Payload Mass (kg)'] < payload[1]) ]\n",
+        "                      if entered_site == 'ALL':\n",
+        "                        fig = px.scatter(filtered_df, x = 'Payload Mass (kg)', \n",
+        "                        y ='class', color = 'Booster Version Category',\n",
+        "                        title='Correlation between Payload & Site for all Sites')\n",
+        "                        return fig\n",
+        "                        \n",
+        "                      else:\n",
+        "                        filtered_df_final = filtered_df[filtered_df['Launch Site'] == entered_site]\n",
+        "                        fig = px.scatter(filtered_df_final, x = 'Payload Mass (kg)', \n",
+        "                        y ='class', color = 'Booster Version Category',\n",
+        "                        title='Correlation between Payload & Site for {}'.format(entered_site))\n",
+        "                        return fig\n",
+        "                       \n",
+        "# Run the app\n",
+        "\n",
+        "app.run_server(mode = 'external')\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 277
+        },
+        "id": "QIYX6fgJpfGT",
+        "outputId": "b2d938cd-6805-4b36-ab08-db28cdb00cea"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "   Unnamed: 0  Flight Number  Launch Site  class  Payload Mass (kg)  \\\n",
+            "0           0              1  CCAFS LC-40      0                0.0   \n",
+            "1           1              2  CCAFS LC-40      0                0.0   \n",
+            "2           2              3  CCAFS LC-40      0              525.0   \n",
+            "3           3              4  CCAFS LC-40      0              500.0   \n",
+            "4           4              5  CCAFS LC-40      0              677.0   \n",
+            "\n",
+            "  Booster Version Booster Version Category  \n",
+            "0  F9 v1.0  B0003                     v1.0  \n",
+            "1  F9 v1.0  B0004                     v1.0  \n",
+            "2  F9 v1.0  B0005                     v1.0  \n",
+            "3  F9 v1.0  B0006                     v1.0  \n",
+            "4  F9 v1.0  B0007                     v1.0  \n",
+            "Dash app running on:\n"
+          ]
+        },
+        {
+          "output_type": "display_data",
+          "data": {
+            "text/plain": [
+              "<IPython.core.display.Javascript object>"
+            ],
+            "application/javascript": [
+              "(async (port, path, text, element) => {\n",
+              "    if (!google.colab.kernel.accessAllowed) {\n",
+              "      return;\n",
+              "    }\n",
+              "    element.appendChild(document.createTextNode(''));\n",
+              "    const url = await google.colab.kernel.proxyPort(port);\n",
+              "    const anchor = document.createElement('a');\n",
+              "    anchor.href = new URL(path, url).toString();\n",
+              "    anchor.target = '_blank';\n",
+              "    anchor.setAttribute('data-href', url + path);\n",
+              "    anchor.textContent = text;\n",
+              "    element.appendChild(anchor);\n",
+              "  })(8050, \"/\", \"http://127.0.0.1:8050/\", window.element)"
+            ]
+          },
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        ""
+      ],
+      "metadata": {
+        "id": "myJ1BjX9rWPB"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        ""
+      ],
+      "metadata": {
+        "id": "LfD78lL-rXPN"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "entered_site = 'CCAFS LC-40'\n",
+        "payload = [0, 10000]\n",
+        "#filtered_df = spacex_df[spacex_df['Launch Site'] == hello]\n",
+        "#fig = px.pie(filtered_df, values = filtered_df['class'].value_counts(), names = filtered_df['class'].unique() , title ='Total Success Launches for Site {}'.format(hello) )\n",
+        "#fig.show()\n",
+        "#spacex_df['Launch Site'].value_counts()\n",
+        "#print(spacex_df)\n",
+        "filtered_df = spacex_df[ (spacex_df['Payload Mass (kg)'] > payload[0]) & (spacex_df['Payload Mass (kg)'] < payload[1]) ]\n",
+        "#print(filtered_df)\n",
+        "if entered_site == 'CCAFS LC-40':\n",
+        "    filtered_df = spacex_df[spacex_df['Launch Site'] == entered_site]\n",
+        "    #filtered_df\n",
+        "    fig = px.scatter(filtered_df, x = 'Payload Mass (kg)', \n",
+        "    y ='class', color = 'Booster Version Category',\n",
+        "    title='Correlation between Payload & Site for {}'.format(entered_site))\n",
+        "    fig.show()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 542
+        },
+        "id": "o76qj29p8VZP",
+        "outputId": "a06c7453-eba0-49aa-dbd8-7d2e99b0e6ad"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "display_data",
+          "data": {
+            "text/html": [
+              "<html>\n",
+              "<head><meta charset=\"utf-8\" /></head>\n",
+              "<body>\n",
+              "    <div>            <script src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG\"></script><script type=\"text/javascript\">if (window.MathJax) {MathJax.Hub.Config({SVG: {font: \"STIX-Web\"}});}</script>                <script type=\"text/javascript\">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>\n",
+              "        <script src=\"https://cdn.plot.ly/plotly-2.8.3.min.js\"></script>                <div id=\"1eb605c5-adad-43f8-a416-631d3df9a2ad\" class=\"plotly-graph-div\" style=\"height:525px; width:100%;\"></div>            <script type=\"text/javascript\">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById(\"1eb605c5-adad-43f8-a416-631d3df9a2ad\")) {                    Plotly.newPlot(                        \"1eb605c5-adad-43f8-a416-631d3df9a2ad\",                        [{\"hovertemplate\":\"Booster Version Category=v1.0<br>Payload Mass (kg)=%{x}<br>class=%{y}<extra></extra>\",\"legendgroup\":\"v1.0\",\"marker\":{\"color\":\"#636efa\",\"symbol\":\"circle\"},\"mode\":\"markers\",\"name\":\"v1.0\",\"orientation\":\"v\",\"showlegend\":true,\"x\":[0.0,0.0,525.0,500.0,677.0],\"xaxis\":\"x\",\"y\":[0,0,0,0,0],\"yaxis\":\"y\",\"type\":\"scatter\"},{\"hovertemplate\":\"Booster Version Category=v1.1<br>Payload Mass (kg)=%{x}<br>class=%{y}<extra></extra>\",\"legendgroup\":\"v1.1\",\"marker\":{\"color\":\"#EF553B\",\"symbol\":\"circle\"},\"mode\":\"markers\",\"name\":\"v1.1\",\"orientation\":\"v\",\"showlegend\":true,\"x\":[3170.0,3325.0,2296.0,1316.0,4535.0,4428.0,2216.0,2395.0,570.0,4159.0,1898.0,4707.0,1952.0],\"xaxis\":\"x\",\"y\":[0,0,0,0,0,0,0,0,0,0,0,0,1],\"yaxis\":\"y\",\"type\":\"scatter\"},{\"hovertemplate\":\"Booster Version Category=FT<br>Payload Mass (kg)=%{x}<br>class=%{y}<extra></extra>\",\"legendgroup\":\"FT\",\"marker\":{\"color\":\"#00cc96\",\"symbol\":\"circle\"},\"mode\":\"markers\",\"name\":\"FT\",\"orientation\":\"v\",\"showlegend\":true,\"x\":[2034.0,5271.0,3136.0,4696.0,3100.0,3600.0,2257.0,4600.0],\"xaxis\":\"x\",\"y\":[1,0,1,1,1,0,1,1],\"yaxis\":\"y\",\"type\":\"scatter\"}],                        {\"template\":{\"data\":{\"bar\":[{\"error_x\":{\"color\":\"#2a3f5f\"},\"error_y\":{\"color\":\"#2a3f5f\"},\"marker\":{\"line\":{\"color\":\"#E5ECF6\",\"width\":0.5},\"pattern\":{\"fillmode\":\"overlay\",\"size\":10,\"solidity\":0.2}},\"type\":\"bar\"}],\"barpolar\":[{\"marker\":{\"line\":{\"color\":\"#E5ECF6\",\"width\":0.5},\"pattern\":{\"fillmode\":\"overlay\",\"size\":10,\"solidity\":0.2}},\"type\":\"barpolar\"}],\"carpet\":[{\"aaxis\":{\"endlinecolor\":\"#2a3f5f\",\"gridcolor\":\"white\",\"linecolor\":\"white\",\"minorgridcolor\":\"white\",\"startlinecolor\":\"#2a3f5f\"},\"baxis\":{\"endlinecolor\":\"#2a3f5f\",\"gridcolor\":\"white\",\"linecolor\":\"white\",\"minorgridcolor\":\"white\",\"startlinecolor\":\"#2a3f5f\"},\"type\":\"carpet\"}],\"choropleth\":[{\"colorbar\":{\"outlinewidth\":0,\"ticks\":\"\"},\"type\":\"choropleth\"}],\"contour\":[{\"colorbar\":{\"outlinewidth\":0,\"ticks\":\"\"},\"colorscale\":[[0.0,\"#0d0887\"],[0.1111111111111111,\"#46039f\"],[0.2222222222222222,\"#7201a8\"],[0.3333333333333333,\"#9c179e\"],[0.4444444444444444,\"#bd3786\"],[0.5555555555555556,\"#d8576b\"],[0.6666666666666666,\"#ed7953\"],[0.7777777777777778,\"#fb9f3a\"],[0.8888888888888888,\"#fdca26\"],[1.0,\"#f0f921\"]],\"type\":\"contour\"}],\"contourcarpet\":[{\"colorbar\":{\"outlinewidth\":0,\"ticks\":\"\"},\"type\":\"contourcarpet\"}],\"heatmap\":[{\"colorbar\":{\"outlinewidth\":0,\"ticks\":\"\"},\"colorscale\":[[0.0,\"#0d0887\"],[0.1111111111111111,\"#46039f\"],[0.2222222222222222,\"#7201a8\"],[0.3333333333333333,\"#9c179e\"],[0.4444444444444444,\"#bd3786\"],[0.5555555555555556,\"#d8576b\"],[0.6666666666666666,\"#ed7953\"],[0.7777777777777778,\"#fb9f3a\"],[0.8888888888888888,\"#fdca26\"],[1.0,\"#f0f921\"]],\"type\":\"heatmap\"}],\"heatmapgl\":[{\"colorbar\":{\"outlinewidth\":0,\"ticks\":\"\"},\"colorscale\":[[0.0,\"#0d0887\"],[0.1111111111111111,\"#46039f\"],[0.2222222222222222,\"#7201a8\"],[0.3333333333333333,\"#9c179e\"],[0.4444444444444444,\"#bd3786\"],[0.5555555555555556,\"#d8576b\"],[0.6666666666666666,\"#ed7953\"],[0.7777777777777778,\"#fb9f3a\"],[0.8888888888888888,\"#fdca26\"],[1.0,\"#f0f921\"]],\"type\":\"heatmapgl\"}],\"histogram\":[{\"marker\":{\"pattern\":{\"fillmode\":\"overlay\",\"size\":10,\"solidity\":0.2}},\"type\":\"histogram\"}],\"histogram2d\":[{\"colorbar\":{\"outlinewidth\":0,\"ticks\":\"\"},\"colorscale\":[[0.0,\"#0d0887\"],[0.1111111111111111,\"#46039f\"],[0.2222222222222222,\"#7201a8\"],[0.3333333333333333,\"#9c179e\"],[0.4444444444444444,\"#bd3786\"],[0.5555555555555556,\"#d8576b\"],[0.6666666666666666,\"#ed7953\"],[0.7777777777777778,\"#fb9f3a\"],[0.8888888888888888,\"#fdca26\"],[1.0,\"#f0f921\"]],\"type\":\"histogram2d\"}],\"histogram2dcontour\":[{\"colorbar\":{\"outlinewidth\":0,\"ticks\":\"\"},\"colorscale\":[[0.0,\"#0d0887\"],[0.1111111111111111,\"#46039f\"],[0.2222222222222222,\"#7201a8\"],[0.3333333333333333,\"#9c179e\"],[0.4444444444444444,\"#bd3786\"],[0.5555555555555556,\"#d8576b\"],[0.6666666666666666,\"#ed7953\"],[0.7777777777777778,\"#fb9f3a\"],[0.8888888888888888,\"#fdca26\"],[1.0,\"#f0f921\"]],\"type\":\"histogram2dcontour\"}],\"mesh3d\":[{\"colorbar\":{\"outlinewidth\":0,\"ticks\":\"\"},\"type\":\"mesh3d\"}],\"parcoords\":[{\"line\":{\"colorbar\":{\"outlinewidth\":0,\"ticks\":\"\"}},\"type\":\"parcoords\"}],\"pie\":[{\"automargin\":true,\"type\":\"pie\"}],\"scatter\":[{\"marker\":{\"colorbar\":{\"outlinewidth\":0,\"ticks\":\"\"}},\"type\":\"scatter\"}],\"scatter3d\":[{\"line\":{\"colorbar\":{\"outlinewidth\":0,\"ticks\":\"\"}},\"marker\":{\"colorbar\":{\"outlinewidth\":0,\"ticks\":\"\"}},\"type\":\"scatter3d\"}],\"scattercarpet\":[{\"marker\":{\"colorbar\":{\"outlinewidth\":0,\"ticks\":\"\"}},\"type\":\"scattercarpet\"}],\"scattergeo\":[{\"marker\":{\"colorbar\":{\"outlinewidth\":0,\"ticks\":\"\"}},\"type\":\"scattergeo\"}],\"scattergl\":[{\"marker\":{\"colorbar\":{\"outlinewidth\":0,\"ticks\":\"\"}},\"type\":\"scattergl\"}],\"scattermapbox\":[{\"marker\":{\"colorbar\":{\"outlinewidth\":0,\"ticks\":\"\"}},\"type\":\"scattermapbox\"}],\"scatterpolar\":[{\"marker\":{\"colorbar\":{\"outlinewidth\":0,\"ticks\":\"\"}},\"type\":\"scatterpolar\"}],\"scatterpolargl\":[{\"marker\":{\"colorbar\":{\"outlinewidth\":0,\"ticks\":\"\"}},\"type\":\"scatterpolargl\"}],\"scatterternary\":[{\"marker\":{\"colorbar\":{\"outlinewidth\":0,\"ticks\":\"\"}},\"type\":\"scatterternary\"}],\"surface\":[{\"colorbar\":{\"outlinewidth\":0,\"ticks\":\"\"},\"colorscale\":[[0.0,\"#0d0887\"],[0.1111111111111111,\"#46039f\"],[0.2222222222222222,\"#7201a8\"],[0.3333333333333333,\"#9c179e\"],[0.4444444444444444,\"#bd3786\"],[0.5555555555555556,\"#d8576b\"],[0.6666666666666666,\"#ed7953\"],[0.7777777777777778,\"#fb9f3a\"],[0.8888888888888888,\"#fdca26\"],[1.0,\"#f0f921\"]],\"type\":\"surface\"}],\"table\":[{\"cells\":{\"fill\":{\"color\":\"#EBF0F8\"},\"line\":{\"color\":\"white\"}},\"header\":{\"fill\":{\"color\":\"#C8D4E3\"},\"line\":{\"color\":\"white\"}},\"type\":\"table\"}]},\"layout\":{\"annotationdefaults\":{\"arrowcolor\":\"#2a3f5f\",\"arrowhead\":0,\"arrowwidth\":1},\"autotypenumbers\":\"strict\",\"coloraxis\":{\"colorbar\":{\"outlinewidth\":0,\"ticks\":\"\"}},\"colorscale\":{\"diverging\":[[0,\"#8e0152\"],[0.1,\"#c51b7d\"],[0.2,\"#de77ae\"],[0.3,\"#f1b6da\"],[0.4,\"#fde0ef\"],[0.5,\"#f7f7f7\"],[0.6,\"#e6f5d0\"],[0.7,\"#b8e186\"],[0.8,\"#7fbc41\"],[0.9,\"#4d9221\"],[1,\"#276419\"]],\"sequential\":[[0.0,\"#0d0887\"],[0.1111111111111111,\"#46039f\"],[0.2222222222222222,\"#7201a8\"],[0.3333333333333333,\"#9c179e\"],[0.4444444444444444,\"#bd3786\"],[0.5555555555555556,\"#d8576b\"],[0.6666666666666666,\"#ed7953\"],[0.7777777777777778,\"#fb9f3a\"],[0.8888888888888888,\"#fdca26\"],[1.0,\"#f0f921\"]],\"sequentialminus\":[[0.0,\"#0d0887\"],[0.1111111111111111,\"#46039f\"],[0.2222222222222222,\"#7201a8\"],[0.3333333333333333,\"#9c179e\"],[0.4444444444444444,\"#bd3786\"],[0.5555555555555556,\"#d8576b\"],[0.6666666666666666,\"#ed7953\"],[0.7777777777777778,\"#fb9f3a\"],[0.8888888888888888,\"#fdca26\"],[1.0,\"#f0f921\"]]},\"colorway\":[\"#636efa\",\"#EF553B\",\"#00cc96\",\"#ab63fa\",\"#FFA15A\",\"#19d3f3\",\"#FF6692\",\"#B6E880\",\"#FF97FF\",\"#FECB52\"],\"font\":{\"color\":\"#2a3f5f\"},\"geo\":{\"bgcolor\":\"white\",\"lakecolor\":\"white\",\"landcolor\":\"#E5ECF6\",\"showlakes\":true,\"showland\":true,\"subunitcolor\":\"white\"},\"hoverlabel\":{\"align\":\"left\"},\"hovermode\":\"closest\",\"mapbox\":{\"style\":\"light\"},\"paper_bgcolor\":\"white\",\"plot_bgcolor\":\"#E5ECF6\",\"polar\":{\"angularaxis\":{\"gridcolor\":\"white\",\"linecolor\":\"white\",\"ticks\":\"\"},\"bgcolor\":\"#E5ECF6\",\"radialaxis\":{\"gridcolor\":\"white\",\"linecolor\":\"white\",\"ticks\":\"\"}},\"scene\":{\"xaxis\":{\"backgroundcolor\":\"#E5ECF6\",\"gridcolor\":\"white\",\"gridwidth\":2,\"linecolor\":\"white\",\"showbackground\":true,\"ticks\":\"\",\"zerolinecolor\":\"white\"},\"yaxis\":{\"backgroundcolor\":\"#E5ECF6\",\"gridcolor\":\"white\",\"gridwidth\":2,\"linecolor\":\"white\",\"showbackground\":true,\"ticks\":\"\",\"zerolinecolor\":\"white\"},\"zaxis\":{\"backgroundcolor\":\"#E5ECF6\",\"gridcolor\":\"white\",\"gridwidth\":2,\"linecolor\":\"white\",\"showbackground\":true,\"ticks\":\"\",\"zerolinecolor\":\"white\"}},\"shapedefaults\":{\"line\":{\"color\":\"#2a3f5f\"}},\"ternary\":{\"aaxis\":{\"gridcolor\":\"white\",\"linecolor\":\"white\",\"ticks\":\"\"},\"baxis\":{\"gridcolor\":\"white\",\"linecolor\":\"white\",\"ticks\":\"\"},\"bgcolor\":\"#E5ECF6\",\"caxis\":{\"gridcolor\":\"white\",\"linecolor\":\"white\",\"ticks\":\"\"}},\"title\":{\"x\":0.05},\"xaxis\":{\"automargin\":true,\"gridcolor\":\"white\",\"linecolor\":\"white\",\"ticks\":\"\",\"title\":{\"standoff\":15},\"zerolinecolor\":\"white\",\"zerolinewidth\":2},\"yaxis\":{\"automargin\":true,\"gridcolor\":\"white\",\"linecolor\":\"white\",\"ticks\":\"\",\"title\":{\"standoff\":15},\"zerolinecolor\":\"white\",\"zerolinewidth\":2}}},\"xaxis\":{\"anchor\":\"y\",\"domain\":[0.0,1.0],\"title\":{\"text\":\"Payload Mass (kg)\"}},\"yaxis\":{\"anchor\":\"x\",\"domain\":[0.0,1.0],\"title\":{\"text\":\"class\"}},\"legend\":{\"title\":{\"text\":\"Booster Version Category\"},\"tracegroupgap\":0},\"title\":{\"text\":\"Correlation between Payload & Site for CCAFS LC-40\"}},                        {\"responsive\": true}                    ).then(function(){\n",
+              "                            \n",
+              "var gd = document.getElementById('1eb605c5-adad-43f8-a416-631d3df9a2ad');\n",
+              "var x = new MutationObserver(function (mutations, observer) {{\n",
+              "        var display = window.getComputedStyle(gd).display;\n",
+              "        if (!display || display === 'none') {{\n",
+              "            console.log([gd, 'removed!']);\n",
+              "            Plotly.purge(gd);\n",
+              "            observer.disconnect();\n",
+              "        }}\n",
+              "}});\n",
+              "\n",
+              "// Listen for the removal of the full notebook cells\n",
+              "var notebookContainer = gd.closest('#notebook-container');\n",
+              "if (notebookContainer) {{\n",
+              "    x.observe(notebookContainer, {childList: true});\n",
+              "}}\n",
+              "\n",
+              "// Listen for the clearing of the current output cell\n",
+              "var outputEl = gd.closest('.output');\n",
+              "if (outputEl) {{\n",
+              "    x.observe(outputEl, {childList: true});\n",
+              "}}\n",
+              "\n",
+              "                        })                };                            </script>        </div>\n",
+              "</body>\n",
+              "</html>"
+            ]
+          },
+          "metadata": {}
+        }
+      ]
+    }
+  ]
+}
