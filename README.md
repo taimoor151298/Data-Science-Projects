@@ -1,32 +1,39 @@
 # Data-Science-Projects
 This repository includes all the projects done as part of learning data science. 
-The projects can include exploratory data analysis, data visualization or implementing machine learning models for data mining. 
+The projects can include one or more of the following steps
+- Data Collection & Wrangling
+- Exploratory Data Analysis
+- Implementation of ML Algorithms
+- Data Analytics and Visualization
 
-<h2> Project 1 - Airline Flights Performance using Dash and Plotly </h2>
-
-The project involves creating an interactive dashboard using Dash to report yearly US domestic airline flights performance for 2005-2020. Goal is to analyze the performance of the reporting airline to improve flight reliability thereby improving customer reliability.
-
-Below are the key report items,
-
-- Yearly airline performance report 
-- Yearly average flight delay statistics
+<h2> Project 1 - SpaceX Falcon 9 First Stage Landing Prediction </h2>
 
 
-In case of yearly airline performance report for a chosen year, following graphs have been plotted:
+<h3> Summary </h3>
+In this project, we predict whether the first stage of a Falcon 9 rocket will land or not using historical data such as payload mass, booster version, launch site and targetted orbit.
 
-- Number of flights under different cancellation categories using bar chart.
-- Average flight time by reporting airline using line chart.
-- Percentage of diverted airport landings per reporting airline using pie chart.
-- Number of flights flying from each state using choropleth map.
-- Number of flights flying to each state from each reporting airline using treemap chart.
-- Yearly average flight delay statistics
+<h3> Methodology </h3>
+The project involves the following steps:
 
-For yearly average flight delay statistics, following graphs have been plotted:
 
-- Monthly average carrier delay by reporting airline for the given year.
-- Monthly average weather delay by reporting airline for the given year.
-- Monthly average national air system delay by reporting airline for the given year.
-- Monthly average security delay by reporting airline for the given year.
-- Monthly average late aircraft delay by reporting airline for the given year.
+**1. Data Collection**
+- Using `GET` requests to the SpaceX Rest API
+- Web Scraping using `beautiful soup` library
+
+**2. Data Wrangling**
+Pandas library is used to check for missing and null values. The missing values are replaced by the mean of the column.
+
+**3. Exploratory Data Analysis**
+- Using Plotly Dashboards and Folium maps to understand relationship between input features and visualizing them using `matplotlib` and `seaborn` libraries
+- Using SQL to query data to explore the data set
+
+**4. Predictive Analysis**
+- Implementing SVM, Logistic Regression, Decision Trees and KNN classifiers using `sklearn` 
+- Comparing the results using accuracy and confusion matrix
+
+  
+
+
+
 
 
